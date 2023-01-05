@@ -96,6 +96,36 @@ const multilingualDictionary: MultilingualDictionary = {
 		Español: 'Registrar',
 		中文: '',
 	},
+	ShareCamera: {
+		English: 'Share Camera',
+		Español: '',
+		中文: '',
+	},
+	ShareMicrophone: {
+		English: 'Share Microphone',
+		Español: '',
+		中文: '',
+	},
+	ShareScreen: {
+		English: 'Share Microphone',
+		Español: '',
+		中文: '',
+	},
+	StopSharingCamera: {
+		English: 'Stop Sharing Camera',
+		Español: '',
+		中文: '',
+	},
+	StopSharingMicrophone: {
+		English: 'Stop Sharing Microphone',
+		Español: '',
+		中文: '',
+	},
+	StopSharingScreen: {
+		English: 'Stop Sharing Microphone',
+		Español: '',
+		中文: '',
+	},
 	Submit: {
 		English: 'Submit',
 		Español: 'Enviar',

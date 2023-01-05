@@ -1,4 +1,4 @@
-import React, {
+import {
 	useContext,
 	useEffect,
 	useRef,
@@ -23,6 +23,8 @@ const CameraFeed = (): JSX.Element => {
 			) {
 				// eslint-disable-next-line prefer-destructuring
 				videoRef.current.srcObject = cameraStreamRef.current;
+				// prevents echo
+				videoRef.current.volume = 0;
 			}
 		},
 		[sharingCamera],
@@ -30,10 +32,14 @@ const CameraFeed = (): JSX.Element => {
 
 	return (
 		<video
+			aria-label="camera"
 			autoPlay
-			hidden={!sharingCamera}
+			controls
 			ref={videoRef}
 			style={{
+				display: sharingCamera
+					? 'inline'
+					: 'none',
 				height: 'auto',
 				width: '50%',
 			}}

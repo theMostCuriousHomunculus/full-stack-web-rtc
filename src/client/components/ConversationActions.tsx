@@ -1,20 +1,22 @@
-import React, {
+import {
 	MouseEventHandler,
 	useContext,
 } from 'react';
 
-import CallEndIcon from '@mui/icons-material/CallEnd.js';
+// import CallEndIcon from '@mui/icons-material/CallEnd.js';
 import MicIcon from '@mui/icons-material/Mic.js';
 import MicOffIcon from '@mui/icons-material/MicOff.js';
 import ScreenShareIcon from '@mui/icons-material/ScreenShare.js';
 import SpeedDial from '@mui/material/SpeedDial/index.js';
 import SpeedDialAction from '@mui/material/SpeedDialAction/index.js';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon/index.js';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare.js';
 import VideocamIcon from '@mui/icons-material/Videocam.js';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff.js';
-import { useParams } from 'react-router-dom';
 
 import { ConversationContext } from '../contexts/conversation.jsx';
+import { PreferencesContext } from '../contexts/preferences.js';
+import multilingualDictionary from '../constants/multilingual-dictionary.js';
 
 const ConversationActions = (): JSX.Element => {
 	const {
@@ -28,7 +30,7 @@ const ConversationActions = (): JSX.Element => {
 		sharingMic,
 		sharingScreen,
 	} = useContext(ConversationContext);
-	const { participantIDs } = useParams();
+	const { languageState } = useContext(PreferencesContext);
 	const actions: Array<{
 		icon: JSX.Element;
 		name: string;
@@ -38,7 +40,7 @@ const ConversationActions = (): JSX.Element => {
 	if (sharingCamera) {
 		actions.push ({
 			icon: <VideocamOffIcon />,
-			name: 'Stop Sharing Camera',
+			name: multilingualDictionary.StopSharingCamera[languageState],
 			onClick(){
 				if (cameraStreamRef.current) {
 					cameraStreamRef.current.getVideoTracks()[0].enabled = false;
@@ -49,7 +51,7 @@ const ConversationActions = (): JSX.Element => {
 	} else {
 		actions.push ({
 			icon: <VideocamIcon />,
-			name: 'Start Sharing Camera',
+			name: multilingualDictionary.ShareCamera[languageState],
 			onClick(){
 				if (cameraStreamRef.current) {
 					cameraStreamRef.current.getVideoTracks()[0].enabled = true;
@@ -94,7 +96,7 @@ const ConversationActions = (): JSX.Element => {
 	if (sharingMic) {
 		actions.push ({
 			icon: <MicOffIcon />,
-			name: 'Stop Sharing Microphone',
+			name: multilingualDictionary.StopSharingMicrophone[languageState],
 			onClick(){
 				if (cameraStreamRef.current) {
 					cameraStreamRef.current.getAudioTracks()[0].enabled = false;
@@ -107,7 +109,7 @@ const ConversationActions = (): JSX.Element => {
 	} else {
 		actions.push ({
 			icon: <MicIcon />,
-			name: 'Start Sharing Microphone',
+			name: multilingualDictionary.ShareMicrophone[languageState],
 			onClick(){
 				if (cameraStreamRef.current) {
 					cameraStreamRef.current.getAudioTracks()[0].enabled = true;
@@ -132,45 +134,31 @@ const ConversationActions = (): JSX.Element => {
 	if (sharingScreen) {
 		actions.push ({
 			icon: <StopScreenShareIcon />,
-			name: 'Stop Sharing Screen',
+			name: multilingualDictionary.StopSharingScreen[languageState],
 			onClick(){
-				setSharingScreen(false); 
+				setSharingScreen(false);
 			},
 		});
 	} else {
 		actions.push ({
 			icon: <ScreenShareIcon />,
-			name: 'Start Sharing Screen',
+			name: multilingualDictionary.ShareScreen[languageState],
 			onClick(){
-				setSharingScreen(true); 
+				setSharingScreen(true);
 			},
 		});
 	}
 
-	// (async () => {
-	// 	try {
-	// 		streamRef.current = await navigator.mediaDevices.getUserMedia({
-	// 			audio: true,
-	// 			video: true,
-	// 		});
-	// 		// streamRef.current = await navigator.mediaDevices.getDisplayMedia({
-	// 		// 	audio: false, 
-	// 		// 	video: true,
-	// 		// });
-	// 		if (cameraFeedVideoRef.current) {
-	// 			// eslint-disable-next-line prefer-destructuring
-	// 			cameraFeedVideoRef.current.srcObject = streamRef.current;
-	// 		}
-
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// })();
-
 	return (
 		<SpeedDial
 			ariaLabel="conversation-actions"
-			direction="down"
+			direction="right"
+			icon={<SpeedDialIcon />}
+			sx={{
+				left: 8,
+				position: 'absolute',
+				top: 8,
+			}}
 		>
 			{actions.map(
 				(action) => (

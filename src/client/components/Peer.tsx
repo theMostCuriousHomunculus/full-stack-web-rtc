@@ -2,6 +2,8 @@ import {
 	useEffect,
 	useRef,
 } from 'react';
+import Box from '@mui/material/Box/index.js';
+import Typography from '@mui/material/Typography/index.js';
 
 import IPerfectRTCPeerConnection from '../../types/perfect-rtc-peer-connection.js';
 
@@ -24,26 +26,44 @@ const Peer = ({ connection }: PeerProps): JSX.Element => {
 						videoRef.current.srcObject = rtcTrackEvent.streams[0];
 					}
 				};
-
-				rtcTrackEvent.track.onmute = () => {
-					if (videoRef.current) {
-						videoRef.current.srcObject = null;
-					}
-				};
 			};
 		},
 		[],
 	);
 
 	return (
-		<video
-			autoPlay
-			ref={videoRef}
-			style={{
-				height: 'auto',
-				width: '50%',
-			}}
-		/>
+		<Box
+			component="span"
+			sx={{ position: 'relative' }}
+		>
+			<Typography
+				align="center"
+				component="span"
+				sx={{
+					'-webkit-text-stroke-color': 'black',
+					'-webkit-text-stroke-width': 1,
+					fontSize: '2rem',
+					left: '50%',
+					position: 'absolute',
+					transform: 'translateX(-50%)',
+					zIndex: 1,
+				}}
+				variant="subtitle1"
+			>
+				{connection.name}
+			</Typography>
+			<video
+				aria-label={connection.name}
+				autoPlay
+				controls
+				ref={videoRef}
+				style={{
+					display: 'inline',
+					height: 'auto',
+					width: '50%',
+				}}
+			/>
+		</Box>
 	);
 };
 

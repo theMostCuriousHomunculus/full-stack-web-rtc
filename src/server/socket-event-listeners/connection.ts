@@ -5,6 +5,7 @@ import socketAnswerEventListener from './answer.js';
 import socketDisconnectingEventListener from './disconnecting.js';
 import socketICECandidateEventListener from './ice-candidate.js';
 import socketJoinConversationEventListener from './join-conversation.js';
+import socketLeaveConversationEventListener from './leave-conversation.js';
 import socketOfferEventListener from './offer.js';
 import socketWelcomeEventListener from './welcome.js';
 
@@ -26,10 +27,12 @@ function socketConnectionEventListener(this: FastifyServer, socket: Socket) {
 
 	socket.on(
 		'join-conversation',
-		socketJoinConversationEventListener.bind({
-			server: this,
-			socket,
-		}),
+		socketJoinConversationEventListener.bind(socket),
+	);
+
+	socket.on(
+		'leave-conversation',
+		socketLeaveConversationEventListener.bind(socket),
 	);
 
 	socket.on(

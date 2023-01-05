@@ -1,4 +1,4 @@
-import React, {
+import {
 	Dispatch,
 	MutableRefObject,
 	ReactElement,
@@ -91,6 +91,7 @@ export const ConversationProvider = ({ children }: { children: ReactElement }): 
 	useEffect(
 		() => {
 			if (userID) {
+				/** @tutorial https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Perfect_negotiation */
 				class PerfectRTCPeerConnection extends RTCPeerConnection implements IPerfectRTCPeerConnection {
 					makingOffer: boolean;
 					name: string;
@@ -173,20 +174,6 @@ export const ConversationProvider = ({ children }: { children: ReactElement }): 
 						this.onnegotiationneeded = makeOffer;
 
 						if (polite) makeOffer();
-
-						// if (streamRef.current) {
-						// 	streamRef
-						// 		.current
-						// 		.getTracks()
-						// 		.forEach(
-						// 			(track) => {
-						// 				this.addTrack(
-						// 					track,
-						// 					streamRef.current as MediaStream,
-						// 				);
-						// 			},
-						// 		);
-						// }
 
 						setPeersCount((prevState) => prevState + 1);
 					}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import {
 	QueryClient,
@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import { httpBatchLink } from '@trpc/client';
 
-// import './App.css';
+import './App.css';
 
 import About from './screens/About.jsx';
 import Conversation from './screens/Conversation.jsx';

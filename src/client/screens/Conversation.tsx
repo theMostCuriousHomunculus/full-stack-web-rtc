@@ -43,7 +43,7 @@ const Conversation = (): JSX.Element => {
 
 	return (
 		<>
-			<Paper>
+			<Paper sx={{ position: 'relative' }}>
 				<ConversationActions />
 				<CameraFeed />
 				{Object

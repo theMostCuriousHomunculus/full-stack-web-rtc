@@ -1,16 +1,16 @@
-import React, {
+import {
 	ReactNode,
 	useContext,
 	useRef,
 	useState,
 } from 'react';
-import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined.js';
 import Button from '@mui/material/Button/index.js';
 import Card from '@mui/material/Card/index.js';
 import CardActions from '@mui/material/CardActions/index.js';
 import CardContent from '@mui/material/CardContent/index.js';
 import CardHeader from '@mui/material/CardHeader/index.js';
 import Paper from '@mui/material/Paper/index.js';
+import SendIcon from '@mui/icons-material/Send.js';
 import TextField from '@mui/material/TextField/index.js';
 import Typography from '@mui/material/Typography/index.js';
 import { useTheme } from '@mui/material/styles/index.js';
@@ -132,6 +132,7 @@ const AutoScrollMessages = ({
 				<CardActions
 					style={{
 						alignItems: 'stretch',
+						columnGap: 8,
 						flexDirection: 'row',
 					}}
 				>
@@ -157,10 +158,9 @@ const AutoScrollMessages = ({
 						onClick={() => {
 							if (newMessageText.length > 0) preach();
 						}}
-						startIcon={<AddCommentOutlinedIcon />}
-					>
-						Preach!
-					</Button>
+						startIcon={<SendIcon />}
+						variant="contained"
+					/>
 				</CardActions>
 			)}
 		</Card>
