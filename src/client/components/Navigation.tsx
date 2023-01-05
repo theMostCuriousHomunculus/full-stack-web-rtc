@@ -1,4 +1,4 @@
-import React, {
+import {
 	useContext,
 	useEffect,
 	useState,
@@ -20,10 +20,7 @@ import multilingualDictionary from '../constants/multilingual-dictionary.js';
 import { trpc } from '../hooks/trpc.js';
 
 const Navigation = ({ children }: { children: JSX.Element }): JSX.Element => {
-	const {
-		dispatchUserAction,
-		userState: { authenticated },
-	} = useContext(UserContext);
+	const { dispatchUserAction } = useContext(UserContext);
 	const { languageState } = useContext(PreferencesContext);
 	const logout = trpc.account.logout.useMutation();
 	const logoutAll = trpc.account.logoutAll.useMutation();

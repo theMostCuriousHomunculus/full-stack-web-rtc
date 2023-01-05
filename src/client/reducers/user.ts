@@ -105,7 +105,7 @@ export type UserAction = BudConnected
 export default function userReducer(
 	state: UserState,
 	action: UserAction,
-) {
+): UserState {
 	switch(action.type) {
 		case 'ConversationMessageDisplayed': {
 			const {

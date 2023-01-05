@@ -1,19 +1,25 @@
 import { Socket } from 'socket.io';
 
-import AnswerEventPayload from '../../types/socket-event-payloads/answer.js';
+import {
+	ReceiveSDPEventPayload,
+	SendSDPEventPayload,
+} from '../../types/socket-event-payloads/sdp.js';
 
 function socketAnswerEventListener(
 	this: Socket,
 	{
-		participantIDs,
 		sdp,
-	}: AnswerEventPayload,
+		toSocketID,
+	}: SendSDPEventPayload,
 ) {
 	this
-		.to(participantIDs)
+		.to(toSocketID)
 		.emit(
-			`${this.id}-answer`,
-			{ sdp },
+			'answer',
+			{
+				fromSocketID: this.id,
+				sdp,
+			} as ReceiveSDPEventPayload,
 		);
 }
 

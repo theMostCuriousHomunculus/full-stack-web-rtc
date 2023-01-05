@@ -1,52 +1,23 @@
 import { Socket } from 'socket.io';
 
-import { FastifyServer } from '../index.js';
-import JoinConversationEventPayload from '../../types/socket-event-payloads/join-conversation.js';
+import PeerInfoPayload from '../../types/socket-event-payloads/peer-info.js';
 
 function socketJoinConversationEventListener(
-	this: {
-		server: FastifyServer;
-		socket: Socket;
-	},
-	{ participantIDs }: JoinConversationEventPayload,
+	this: Socket,
+	participantIDs: string,
 ) {
 	// ensure only invited users can join the conversation
-	if (participantIDs.includes(this.socket.data.userID)) {
-		this.socket.join(participantIDs);
-		this.socket.to(participantIDs).emit(
+	if (participantIDs.includes(this.data.userID)) {
+		this.join(participantIDs);
+		this.to(participantIDs).emit(
 			'peer-joined',
 			{
-				peer: {
-					socketID: this.socket.id,
-					socketName: this.socket.data.userName,
-				},
-			},
+				name: this.data.userName,
+				socketID: this.id,
+			} as PeerInfoPayload,
 		);
-		(async () => {
-			const peers = await this
-				.server
-				.io
-				.in(participantIDs)
-				.fetchSockets();
-			this
-				.server
-				.io
-				.to(this.socket.id)
-				.emit(
-					'conversation-joined',
-					{
-						// let the newly connected socket know who else has joined the conversation
-						peers: peers.map(
-							(peer) => ({
-								socketID: peer.id,
-								socketName: peer.data.userName,
-							}),
-						), 
-					},
-				);
-		})();
 	} else {
-		this.socket._error(new Error('Access Denied.'));
+		this._error(new Error('Access Denied.'));
 	}
 }
 

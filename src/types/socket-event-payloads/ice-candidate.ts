@@ -1,6 +1,14 @@
-interface ICECandidateEventPayload {
+interface ReceiveICECandidateEventPayload {
 	candidate: RTCIceCandidate;
-	participantIDs: string;
+	fromSocketID: string;
 }
 
-export default ICECandidateEventPayload;
+interface SendICECandidateEventPayload {
+	candidate: RTCIceCandidate;
+	toSocketID: string;
+}
+
+export type {
+	ReceiveICECandidateEventPayload,
+	SendICECandidateEventPayload,
+};

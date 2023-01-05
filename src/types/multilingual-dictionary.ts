@@ -3,7 +3,7 @@ import { Language } from './language.js';
 interface MultilingualDictionary {
 	/** Tooltip text for the icon button navigation link to the page with information about the app */
 	About: Record<Language, string>;
-	/** Text displayed when user trys to join a conversation they are not invited to */
+	/** Text displayed when user tries to join a conversation they are not invited to */
 	AccessDenied: Record<Language, string>;
 	/** Tooltip text for the icon button to turn on push notifications */
 	AllowNotifications: Record<Language, string>;
@@ -39,6 +39,18 @@ interface MultilingualDictionary {
 	Password: Record<Language, string>;
 	/** Button text to display the register tab on the authentication form */
 	Register: Record<Language, string>;
+	/** Tooltip text for the speed dial action to broadcast the user's camera video and audio feed to everyone in the conversation */
+	ShareCamera: Record<Language, string>;
+	/** Tooltip text for the speed dial action to broadcast the user's microphone audio feed to everyone in the conversation */
+	ShareMicrophone: Record<Language, string>;
+	/** Tooltip text for the speed dial action to broadcast the user's screen to everyone in the conversation */
+	ShareScreen: Record<Language, string>;
+	/** Tooltip text for the speed dial action to stop broadcasting the user's camera video feed to everyone in the conversation */
+	StopSharingCamera: Record<Language, string>;
+	/** Tooltip text for the speed dial action to stop broadcasting the user's microphone audio feed to everyone in the conversation */
+	StopSharingMicrophone: Record<Language, string>;
+	/** Tooltip text for the speed dial action to stop broadcasting the user's screen to everyone in the conversation */
+	StopSharingScreen: Record<Language, string>;
 	/** Button text to submit a form */
 	Submit: Record<Language, string>;
 	/** Label text for the user name input on the authentication form */

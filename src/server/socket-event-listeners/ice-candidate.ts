@@ -1,19 +1,25 @@
 import { Socket } from 'socket.io';
 
-import ICECandidateEventPayload from '../../types/socket-event-payloads/ice-candidate.js';
+import {
+	ReceiveICECandidateEventPayload,
+	SendICECandidateEventPayload,
+} from '../../types/socket-event-payloads/ice-candidate.js';
 
 function socketICECandidateEventListener(
 	this: Socket,
 	{
-		participantIDs,
 		candidate,
-	}: ICECandidateEventPayload,
+		toSocketID,
+	}: SendICECandidateEventPayload,
 ) {
 	this
-		.to(participantIDs)
+		.to(toSocketID)
 		.emit(
-			`${this.id}-ice-candidate`,
-			{ candidate },
+			'ice-candidate',
+			{
+				candidate,
+				fromSocketID: this.id,
+			} as ReceiveICECandidateEventPayload,
 		);
 }
 

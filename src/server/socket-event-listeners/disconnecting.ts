@@ -1,5 +1,7 @@
 import { Socket } from 'socket.io';
 
+import PeerInfoPayload from '../../types/socket-event-payloads/peer-info.js';
+
 function socketDisconnectingEventListener(this: Socket) {
 	this.rooms.forEach(
 		(room) => {
@@ -8,11 +10,9 @@ function socketDisconnectingEventListener(this: Socket) {
 				.emit(
 					'peer-disconnected',
 					{
-						peer: {
-							socketID: this.id,
-							socketName: this.data.userName,
-						},
-					},
+						name: this.data.userName,
+						socketID: this.id,
+					} as PeerInfoPayload,
 				);
 		},
 	);

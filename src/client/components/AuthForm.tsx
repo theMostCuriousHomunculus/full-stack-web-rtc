@@ -1,3 +1,4 @@
+/** @file This dialog component is responsible for managing the authentication form which allows the user to login, register and reset their password. */
 import {
 	FormEventHandler,
 	useContext,

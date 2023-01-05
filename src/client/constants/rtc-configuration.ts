@@ -1,4 +1,4 @@
-const iceServers = {
+const rtcConfiguration: RTCConfiguration = {
 	iceServers: [
 		{
 			urls: [
@@ -11,4 +11,4 @@ const iceServers = {
 	],
 };
 
-export default iceServers;
+export default rtcConfiguration;

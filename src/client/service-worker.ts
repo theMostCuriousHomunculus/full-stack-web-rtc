@@ -25,14 +25,14 @@ self.addEventListener(
 	},
 );
 
-self.addEventListener(
-	'fetch',
-	(event) => {
-		console.log(
-			`[Service Worker]: Fetching ${event.request.url}...`,
-			event,
-		);
-		// doesn't do anything
-		// event.respondWith(fetch(event.request));
-	},
-);
+// self.addEventListener(
+// 	'fetch',
+// 	(event) => {
+// 		console.log(
+// 			`[Service Worker]: Fetching ${event.request.url}...`,
+// 			event,
+// 		);
+//		doesn't do anything
+//		event.respondWith(fetch(event.request));
+// 	},
+// );

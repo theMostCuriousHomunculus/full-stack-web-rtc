@@ -20,6 +20,7 @@ import userReducer, {
 import AuthForm from '../components/AuthForm.jsx';
 
 interface UserContextValue {
+	connected: boolean;
 	dispatchUserAction: Dispatch<UserAction>;
 	setAuthFormDisplayed: Dispatch<SetStateAction<boolean>>;
 	socketRef: MutableRefObject<Socket | undefined>;
@@ -27,6 +28,7 @@ interface UserContextValue {
 }
 
 export const UserContext = createContext<UserContextValue>({
+	connected: false,
 	dispatchUserAction: () => { /* void */ },
 	setAuthFormDisplayed: () => { /* void */ },
 	socketRef: undefined as unknown as MutableRefObject<Socket | undefined>,
@@ -39,6 +41,7 @@ export const UserProvider = ({ children }: { children: ReactElement }): ReactEle
 		unauthenticatedUserState,
 	);
 	const socketRef = useRef<Socket>();
+	const [connected, setConnected] = useState(false);
 	const [authFormDisplayed, setAuthFormDisplayed] = useState(false);
 
 	useEffect(
@@ -49,18 +52,21 @@ export const UserProvider = ({ children }: { children: ReactElement }): ReactEle
 						cb({ token: userState.accessToken }); 
 					}, 
 				});
+				setConnected(true);
 
 				return () => {
 					socketRef.current?.disconnect();
+					setConnected(false);
 				};
 			}
 		},
-		[userState.accessToken, userState.authenticated],
+		[userState.authenticated],
 	);
 
 	return (
 		<UserContext.Provider
 			value={{
+				connected,
 				dispatchUserAction,
 				setAuthFormDisplayed,
 				socketRef,
